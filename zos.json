@@ -1,0 +1,11 @@
+{
+  "name": "donations-example",
+  "version": "0.0.2",
+  "contracts": {
+    "Donations": "Donations_v1"
+  },
+  "stdlib": {
+    "name": "openzeppelin-zos",
+    "version": "^1.9.1"
+  }
+}
