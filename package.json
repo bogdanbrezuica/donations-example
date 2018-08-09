@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "react-scripts build",
     "compile": "rm -rf build && npx truffle compile",
+    "eject": "react-scripts eject",
+    "start": "react-scripts start",
     "test": "npm run compile && NODE_ENV=test npx truffle test"
   },
   "author": "Bogdan Brezuica <bbrezuica@gmail.com>",
@@ -14,6 +17,9 @@
     "minimist": "^1.2.0",
     "openzeppelin-solidity": "~1.10.0",
     "openzeppelin-zos": "^1.9.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.4",
     "truffle": "^4.1.13",
     "zos": "^1.1.0",
     "zos-lib": "^1.3.0"
