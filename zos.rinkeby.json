@@ -1,0 +1,41 @@
+{
+  "contracts": {
+    "Donations": {
+      "address": "0x7a389d205e023b80c8d7f0f55afae68378e4fc6f",
+      "constructorCode": "608060405234801561001057600080fd5b50611880806100206000396000f300",
+      "bodyBytecodeHash": "b801315dcc7d203d20c58f3067b1c9ddb6f578922fcb17fd8f0bd801287561e7",
+      "bytecodeHash": "e45e0e663d70818ab2842f62db1e07fa99ab000c4b49453a0420d61a4427c579"
+    }
+  },
+  "proxies": {
+    "Donations": [
+      {
+        "address": "0x9a6fab7df3e6bfc89863b9f2a462391941777393",
+        "version": "0.0.2",
+        "implementation": "0x7a389d205e023b80c8d7f0f55afae68378e4fc6f"
+      }
+    ],
+    "MintableERC721Token": [
+      {
+        "address": "0xb59f08ab596935e165be906d46dceb16d628eb3e",
+        "version": "0.0.2",
+        "implementation": "0xb6f3c2cba255ee9bebaad6e04ea11dafbf7db397"
+      }
+    ]
+  },
+  "app": {
+    "address": "0xafaf0049759659dce5644b488af6c6350343ad23"
+  },
+  "version": "0.0.2",
+  "package": {
+    "address": "0x6c7b5fb08bf415ffae0b7740d7e8e774ab2cb389"
+  },
+  "provider": {
+    "address": "0x38d8f368008b7d0378291809832544b9570c13ab"
+  },
+  "stdlib": {
+    "name": "openzeppelin-zos",
+    "version": "1.9.1",
+    "address": "0x35de7ba3457f9ec93b5b9f05b47c2515ea6255f3"
+  }
+}
