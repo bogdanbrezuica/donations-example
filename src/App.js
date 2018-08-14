@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { Donations_v2, MintableERC721Token } from '../contracts';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { ContractInteractions, Wallet } from './components';
+import { Donations, Token } from './contracts';
 import { DONATIONS_ADDRESS, TOKEN_ADDRESS } from './constants';
-import logo from './logo.svg';
 import getWeb3 from './utils/getWeb3';
 import './App.css';
 
 class App extends Component {
   state = {
+    balance: null,
     donations: null,
     token: null,
     web3: null,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     // Get network provider and web3 instance.
     // See utils/getWeb3 for more info.
     // Copied from https://github.com/truffle-box/react-box
@@ -31,24 +33,33 @@ class App extends Component {
   }
 
   instantiateContracts() {
-    const donations = Donations_v2.at(DONATIONS_ADDRESS);
-    const token = MintableERC721Token.at(TOKEN_ADDRESS);
+    const donations = Donations.at(DONATIONS_ADDRESS);
+    const token = Token.at(TOKEN_ADDRESS);
     this.setState({ donations, token });
-    // donations.
+    this.state.web3.eth.getBalance(donations.address, (err, result) => {
+      this.setState({ balance: this.state.web3.fromWei(result, 'ether').toString() })
+    });
   }
 
   render() {
+    if (!this.state.web3) {
+      return (
+        <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <CircularProgress size={50} />
+        </div>
+      );
+    }
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          Donated so far: {}
-          
-          First account: {this.state.web3 && this.state.web3.eth.accounts[0]}
-        </p>
+      <div style={{ height: '100vh', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', width: '70%' }}>
+          <div style={{ width: '50%', borderRight: '2px solid black' }}>
+            <ContractInteractions web3={this.state.web3} />
+          </div>
+          <div style={{ width: '50%' }}>
+            <Wallet web3={this.state.web3} />
+          </div>
+        </div>
       </div>
     );
   }
