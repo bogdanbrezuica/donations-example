@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Donations } from '../contracts';
 import { DONATIONS_ADDRESS } from '../constants';
+import { OwnerInteractions } from './';
 
 class ContractInteractions extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class ContractInteractions extends Component {
         this.state = {
             balance: null,
             donationValue: 0,
+            owner: '',
             stageBalance: 0,
             withdrawValue: 0,
         };
@@ -28,6 +30,7 @@ class ContractInteractions extends Component {
                     this.setState({ stageBalance: web3.fromWei(balance).toString() })
                 });
         });
+        this.donations.owner().then(owner => this.setState({ owner }));
     }
 
     onValueChange = (ev) => {
@@ -51,19 +54,21 @@ class ContractInteractions extends Component {
         const { web3 } = this.props;
         const { withdrawValue } = this.state;
         const wei = web3.toWei(withdrawValue, 'ether');
-        this.donations.withdrawDonation.sendTransaction({ from: this.account, value: wei }).then(tx => {
+        this.donations.withdrawDonation.sendTransaction(wei, { from: this.account }).then(tx => {
             console.log('pending tx', tx);
         });
     }
 
     render() {
-        const { balance, donationValue, stageBalance, withdrawValue } = this.state;
+        const { balance, donationValue, owner, stageBalance, withdrawValue } = this.state;
+        const { web3 } = this.props;
         const disabled = !this.account;
 
         return (
           <div style={{ padding: '32px 64px' }}>
             <h2>Contract information</h2>
-            <div>Current balance: {balance} ETH</div>
+            <div>Balance: {balance} ETH</div>
+            <div>Owner: {owner}</div>
             <div style={{ display: 'flex', height: '44px', marginTop: '24px' }}>
               <TextField
                 label="Donate (ETH)"
@@ -101,6 +106,7 @@ class ContractInteractions extends Component {
                 </Button>
               </div>
             </div>
+            {owner && this.account === owner && <OwnerInteractions balance={balance} web3={web3} />}
           </div>
         );
     }
