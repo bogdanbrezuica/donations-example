@@ -56,7 +56,7 @@ class Wallet extends Component {
 
         if (accountLocked) {
             return (
-              <div style={{ padding: '32px 64px' }}>
+              <div style={{ padding: '32px 64px', borderBottom: '1px solid black' }}>
                 Unlock your account
               </div>              
             );
@@ -65,7 +65,7 @@ class Wallet extends Component {
           <span key={tokenId} style={{ marginRight: '5px' }}>#{tokenId}</span>
         );
         return (
-          <div style={{ padding: '32px 64px' }}>
+          <div style={{ padding: '32px 64px', borderBottom: '1px solid black' }}>
             <h2>Wallet</h2>
             <div>Address: {this.account}</div>
             <div>Balance: {balance} ETH</div>

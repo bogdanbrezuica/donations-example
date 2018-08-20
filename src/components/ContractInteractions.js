@@ -24,12 +24,14 @@ class ContractInteractions extends Component {
         web3.eth.getBalance(this.donations.address, (err, result) => {
             this.setState({ balance: web3.fromWei(result).toString() })
         });
-        this.donations.stage().then(stage => {
-            this.donations.getDonorBalanceByStage(this.account, stage)
-                .then(balance => {
-                    this.setState({ stageBalance: web3.fromWei(balance).toString() })
-                });
-        });
+        if (this.account) {
+            this.donations.stage().then(stage => {
+                this.donations.getDonorBalanceByStage(this.account, stage)
+                    .then(balance => {
+                        this.setState({ stageBalance: web3.fromWei(balance).toString() })
+                    });
+            });
+        }
         this.donations.owner().then(owner => this.setState({ owner }));
     }
 

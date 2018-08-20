@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { ContractInteractions, Wallet } from './components';
+import { ContractInteractions, EventsInfo, Wallet } from './components';
 import { Donations, Token } from './contracts';
 import { DONATIONS_ADDRESS, TOKEN_ADDRESS } from './constants';
 import getWeb3 from './utils/getWeb3';
@@ -52,12 +52,13 @@ class App extends Component {
 
     return (
       <div style={{ height: '100vh', display: 'flex', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', width: '70%' }}>
+        <div style={{ display: 'flex', width: '100%', padding: '0px 40px', maxWidth: '1200px' }}>
           <div style={{ width: '50%', borderRight: '2px solid black' }}>
             <ContractInteractions web3={this.state.web3} />
           </div>
           <div style={{ width: '50%' }}>
             <Wallet web3={this.state.web3} />
+            <EventsInfo web3={this.state.web3} />
           </div>
         </div>
       </div>
